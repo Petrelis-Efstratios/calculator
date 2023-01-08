@@ -1,0 +1,53 @@
+html {
+    width: 100%;
+    height: 100%;
+}
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.operations {
+    width: 300px;
+    height: 100px;
+    background-color: white;
+    margin: 20px;
+}
+main {
+    width: 400px;
+    height: 600px;
+    background-color: #bababa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.upper-part {
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+}
+.down-part {
+    display: grid;
+    grid-template-columns: repeat(4, 0fr);
+    grid-template-rows: repeat(4, 0fr)
+}
+
+button {
+    width: 80px;
+    height: 80px;
+    padding: 0;
+}
+img {
+    width: 70px;
+    height: 70px;
+    gap: 0;
+}
+.delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
