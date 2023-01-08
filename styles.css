@@ -51,3 +51,8 @@ img {
     justify-content: center;
     align-items: center;
 }
+p {
+    word-wrap: break-word;
+    overflow-x: auto;
+    height: 20px;
+}
