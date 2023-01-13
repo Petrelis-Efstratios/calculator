@@ -1,57 +1,158 @@
-const operations = document.querySelector(".operations");
 const current = document.querySelector(".current");
 const past = document.querySelector(".past");
-const operation = [];
 let currentNumber = "";
-let PLUS = false;
-let zero = () => {currentNumber += 0; changeCurrent()};
-let one = () => {currentNumber += 1; changeCurrent()};
-let two = () => {currentNumber += 2; changeCurrent()};
-let three = () => {currentNumber += 3; changeCurrent()};
-let four = () => {currentNumber += 4; changeCurrent()};
-let five = () => {currentNumber += 5; changeCurrent()};
-let six = () => {currentNumber += 6; changeCurrent()};
-let seven = () => {currentNumber += 7; changeCurrent()};
-let eigth = () => {currentNumber += 8; changeCurrent()};
-let nine = () => {currentNumber += 9; changeCurrent()};
-let plus = () => {PLUS = true; past.textContent += currentNumber + "+"; currentNumber = ""; changeCurrent()};
-//let minus = () => ;
-//let by = () => ;
-//let devides = () => ;
-function changeCurrent() {
+let arr = [];
+let result = 0;
+let num = [];
+let EQUALS = false;
+let x = 0;
+let zero = () => {changeCurrent("0"); something("0");};
+let one = () => {changeCurrent("1"); something("1");};
+let two = () => {changeCurrent("2"); something("2");};
+let three = () => {changeCurrent("3"); something("3");};
+let four = () => {changeCurrent("4"); something("4");};
+let five = () => {changeCurrent("5"); something("5");};
+let six = () => {changeCurrent("6"); something("6");};
+let seven = () => {changeCurrent("7"); something("7");};
+let eigth = () => {changeCurrent("8"); something("8");};
+let nine = () => {changeCurrent("9"); something("9");};
+let plus = () => {
+    pastContent("+");
+    currentNumber = "";
+    changeCurrent("");
+    x = x + 2;
+    arr.push("+");
+};
+let minus = () => {
+    pastContent("-");
+    currentNumber = "";
+    changeCurrent("");
+    x = x + 2;
+    arr.push("-");
+};
+let by = () => {
+    pastContent("✕");
+    currentNumber = "";
+    changeCurrent("");
+    x = x + 2;
+    arr.push("✕")
+};
+let devides = () => {
+    pastContent("/");
+    currentNumber = "";
+    changeCurrent("");
+    x = x + 2
+    arr.push("/")
+};
+let AC = () => {
+    currentNumber = "";
+    arr = [];
+    result = 0;
+    num = [];
+    EQUALS = false;
+    x = 0;
+    changeCurrent("");
+    past.textContent = "";
+}
+let equals = () => {
+    past.textContent += currentNumber;
+    for(let i = 0; i < arr.length; i++) {
+        if(arr[i] === "+") {
+            result = parseFloat(parseFloat(String(Number(arr[i - 1]) + Number(arr[i + 1]))).toFixed(8));
+            arr.splice(i + 1, 1, result);
+        } else if(arr[i] === "-") {
+            result = parseFloat(parseFloat(String(Number(arr[i - 1]) - Number(arr[i + 1]))).toFixed(8));
+            arr.splice(i + 1, 1, result);
+        } else if (arr[i] === "✕") {
+            result = parseFloat(parseFloat(String(Number(arr[i - 1]) * Number(arr[i + 1]))).toFixed(8));
+            arr.splice(i + 1, 1, result);
+        } else if(arr[i] === "/") {
+            result = parseFloat(parseFloat(String(Number(arr[i - 1]) / Number(arr[i + 1]))).toFixed(8));
+            arr.splice(i + 1, 1, result);
+        }
+    }
+    current.textContent = "= " + result;
+    arr = [];
+    arr.push(result);
+    x = 0;
+    num = [];
+    EQUALS = true
+}
+function changeCurrent(num) {
+    if(arr[x] === undefined || !(arr[x][0] === "0")) {
+    currentNumber += num;
     current.textContent = currentNumber;
+    }
+}
+function pastContent(oper) {
+    if(EQUALS) {
+        past.textContent = `${result} ${oper} `;
+        EQUALS = false;
+        result = 0;
+    } else {
+        past.textContent += `${currentNumber} ${oper} `;
+    }
+    past.scrollTop = past.scrollHeight - past.clientHeight;
+}
+function something(curNum) {
+    if(typeof arr[x] === "undefined") {
+        arr.push(curNum);
+    } else if(!(arr[x][0] === "0")) {
+        arr[x] += curNum
+    }
 }
 window.onkeydown = function(e) {
-    switch(e.keyCode) {
-        case 48:
+    switch(e.key) {
+        case "0":
             zero();
             break;
-        case 49:
+        case "1":
             one();
             break;
-        case 50:
+        case "2":
             two();
             break;
-        case 51:
+        case "3":
             three();
             break;
-        case 52:
+        case "4":
             four();
             break;
-        case 53:
+        case "5":
             five();
             break;
-        case 54:
+        case "6":
             six();
             break;
-        case 55:
+        case "7":
             seven();
             break;
-        case 56:
+        case "8":
             eigth();
             break;
-        case 57:
+        case "9":
             nine();
+            break;
+        case "+":
+            plus();
+            break;
+        case "-":
+            minus();
+            break;
+        case "*":
+            by();
+            break;
+        case "/":
+            devides();
+            break;
+        case "=":
+            equals();
+            break;
+        case "Enter":
+            equals();
+            break;
+        case "Delete":
+            AC();
             break;
     }
 }
