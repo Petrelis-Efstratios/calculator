@@ -21,28 +21,28 @@ let plus = () => {
     currentNumber = "";
     changeCurrent("");
     x = x + 2;
-    arr.push("+");
+    something("+");
 };
 let minus = () => {
     pastContent("-");
     currentNumber = "";
     changeCurrent("");
     x = x + 2;
-    arr.push("-");
+    something("-");
 };
 let by = () => {
-    pastContent("✕");
+    pastContent("*");
     currentNumber = "";
     changeCurrent("");
     x = x + 2;
-    arr.push("✕")
+    something("*");
 };
 let devides = () => {
     pastContent("/");
     currentNumber = "";
     changeCurrent("");
-    x = x + 2
-    arr.push("/")
+    x = x + 2;
+    something("/")
 };
 let AC = () => {
     currentNumber = "";
@@ -63,7 +63,7 @@ let equals = () => {
         } else if(arr[i] === "-") {
             result = parseFloat(parseFloat(String(Number(arr[i - 1]) - Number(arr[i + 1]))).toFixed(8));
             arr.splice(i + 1, 1, result);
-        } else if (arr[i] === "✕") {
+        } else if (arr[i] === "*") {
             result = parseFloat(parseFloat(String(Number(arr[i - 1]) * Number(arr[i + 1]))).toFixed(8));
             arr.splice(i + 1, 1, result);
         } else if(arr[i] === "/") {
@@ -89,16 +89,32 @@ function pastContent(oper) {
         past.textContent = `${result} ${oper} `;
         EQUALS = false;
         result = 0;
-    } else {
+    }/* else if(past.textContent.charAt(past.textContent.length - 2) === "+" ||
+        past.textContent.charAt(past.textContent.length - 2) === "-" ||
+        past.textContent.charAt(past.textContent.length - 2) === "*" ||
+        past.textContent.charAt(past.textContent.length - 2) === "/") {
+            past.textContent = past.textContent.slice(0, -2) + `${oper} `;
+    } */else {
         past.textContent += `${currentNumber} ${oper} `;
     }
     past.scrollTop = past.scrollHeight - past.clientHeight;
 }
 function something(curNum) {
-    if(typeof arr[x] === "undefined") {
-        arr.push(curNum);
-    } else if(!(arr[x][0] === "0")) {
-        arr[x] += curNum
+    if(Number(curNum) == curNum) {
+        if(typeof arr[x] === "undefined") {
+            arr.push(curNum);
+        } else if(!(arr[x][0] === "0")) {
+            arr[x] += curNum
+        }
+    } else {
+        if(past.textContent.charAt(past.textContent.length - 2) === "+" ||
+            past.textContent.charAt(past.textContent.length - 2) === "-" ||
+            past.textContent.charAt(past.textContent.length - 2) === "*" ||
+            past.textContent.charAt(past.textContent.length - 2) === "/") {
+                arr.splice(x + 1, 1, curNum);
+        } else {
+            arr.push(curNum);
+        }
     }
 }
 window.onkeydown = function(e) {
