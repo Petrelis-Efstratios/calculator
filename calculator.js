@@ -20,40 +20,28 @@ let plus = () => {
     pastContent("+");
     currentNumber = "";
     changeCurrent("");
-<<<<<<< HEAD
     x = x + 2;
-=======
->>>>>>> ce3d23bcdb8158c6fd901c1e6b5d7b181e4e774f
     something("+");
 };
 let minus = () => {
     pastContent("-");
     currentNumber = "";
     changeCurrent("");
-<<<<<<< HEAD
     x = x + 2;
-=======
->>>>>>> ce3d23bcdb8158c6fd901c1e6b5d7b181e4e774f
     something("-");
 };
 let by = () => {
     pastContent("*");
     currentNumber = "";
     changeCurrent("");
-<<<<<<< HEAD
     x = x + 2;
-=======
->>>>>>> ce3d23bcdb8158c6fd901c1e6b5d7b181e4e774f
     something("*");
 };
 let devides = () => {
     pastContent("/");
     currentNumber = "";
     changeCurrent("");
-<<<<<<< HEAD
     x = x + 2;
-=======
->>>>>>> ce3d23bcdb8158c6fd901c1e6b5d7b181e4e774f
     something("/")
 };
 let AC = () => {
@@ -101,20 +89,12 @@ function pastContent(oper) {
         past.textContent = `${result} ${oper} `;
         EQUALS = false;
         result = 0;
-<<<<<<< HEAD
     }/* else if(past.textContent.charAt(past.textContent.length - 2) === "+" ||
-=======
-    } else if(past.textContent.charAt(past.textContent.length - 2) === "+" ||
->>>>>>> ce3d23bcdb8158c6fd901c1e6b5d7b181e4e774f
         past.textContent.charAt(past.textContent.length - 2) === "-" ||
         past.textContent.charAt(past.textContent.length - 2) === "*" ||
         past.textContent.charAt(past.textContent.length - 2) === "/") {
             past.textContent = past.textContent.slice(0, -2) + `${oper} `;
-<<<<<<< HEAD
     } */else {
-=======
-    } else {
->>>>>>> ce3d23bcdb8158c6fd901c1e6b5d7b181e4e774f
         past.textContent += `${currentNumber} ${oper} `;
     }
     past.scrollTop = past.scrollHeight - past.clientHeight;
@@ -133,10 +113,6 @@ function something(curNum) {
             past.textContent.charAt(past.textContent.length - 2) === "/") {
                 arr.splice(x + 1, 1, curNum);
         } else {
-<<<<<<< HEAD
-=======
-            x = x + 2;
->>>>>>> ce3d23bcdb8158c6fd901c1e6b5d7b181e4e774f
             arr.push(curNum);
         }
     }
