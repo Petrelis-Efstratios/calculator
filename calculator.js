@@ -17,31 +17,23 @@ let seven = () => {changeCurrent("7"); something("7");};
 let eigth = () => {changeCurrent("8"); something("8");};
 let nine = () => {changeCurrent("9"); something("9");};
 let plus = () => {
-    pastContent("+");
     currentNumber = "";
     changeCurrent("");
-    x = x + 2;
     something("+");
 };
 let minus = () => {
-    pastContent("-");
     currentNumber = "";
     changeCurrent("");
-    x = x + 2;
     something("-");
 };
 let by = () => {
-    pastContent("*");
     currentNumber = "";
     changeCurrent("");
-    x = x + 2;
     something("*");
 };
 let devides = () => {
-    pastContent("/");
     currentNumber = "";
     changeCurrent("");
-    x = x + 2;
     something("/")
 };
 let AC = () => {
@@ -84,21 +76,21 @@ function changeCurrent(num) {
     current.textContent = currentNumber;
     }
 }
-function pastContent(oper) {
+/*function pastContent(oper) {
     if(EQUALS) {
         past.textContent = `${result} ${oper} `;
         EQUALS = false;
         result = 0;
-    }/* else if(past.textContent.charAt(past.textContent.length - 2) === "+" ||
-        past.textContent.charAt(past.textContent.length - 2) === "-" ||
-        past.textContent.charAt(past.textContent.length - 2) === "*" ||
-        past.textContent.charAt(past.textContent.length - 2) === "/") {
+    } else if(arr[x] === "+" ||
+        arr[x] === "-" ||
+        arr[x] === "*" ||
+        arr[x] === "/") {
             past.textContent = past.textContent.slice(0, -2) + `${oper} `;
-    } */else {
+    } else {
         past.textContent += `${currentNumber} ${oper} `;
     }
     past.scrollTop = past.scrollHeight - past.clientHeight;
-}
+}*/
 function something(curNum) {
     if(Number(curNum) == curNum) {
         if(typeof arr[x] === "undefined") {
@@ -107,14 +99,17 @@ function something(curNum) {
             arr[x] += curNum
         }
     } else {
-        if(past.textContent.charAt(past.textContent.length - 2) === "+" ||
-            past.textContent.charAt(past.textContent.length - 2) === "-" ||
-            past.textContent.charAt(past.textContent.length - 2) === "*" ||
-            past.textContent.charAt(past.textContent.length - 2) === "/") {
-                arr.splice(x + 1, 1, curNum);
+        if(arr[x] === "+" ||
+            arr[x] === "-" ||
+            arr[x] === "*" ||
+            arr[x] === "/"){
+                arr.splice(x, 1, curNum);
         } else {
+            x++;
             arr.push(curNum);
         }
+        past.textContent = arr.join(" ");
+    past.scrollTop = past.scrollHeight - past.clientHeight;
     }
 }
 window.onkeydown = function(e) {
