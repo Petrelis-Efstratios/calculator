@@ -41,7 +41,6 @@ let AC = () => {
     result = 0;
     num = [];
     EQUALS = false;
-    x = 0;
     changeCurrent("");
     past.textContent = "";
 }
@@ -65,7 +64,6 @@ let equals = () => {
     current.textContent = "= " + result;
     arr = [];
     arr.push(result);
-    x = 0;
     num = [];
     EQUALS = true
 }
@@ -104,7 +102,6 @@ function something(curNum) {
             arr[arr.length - 1] === "/"){
                 arr.splice(x, 1, curNum);
         } else {
-            x++;
             arr.push(curNum);
         }
         past.textContent = arr.join(" ");
