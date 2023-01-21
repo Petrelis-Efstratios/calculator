@@ -5,7 +5,6 @@ let arr = [];
 let result = 0;
 let num = [];
 let EQUALS = false;
-let x = 0;
 let zero = () => {changeCurrent("0"); something("0");};
 let one = () => {changeCurrent("1"); something("1");};
 let two = () => {changeCurrent("2"); something("2");};
@@ -71,10 +70,10 @@ let equals = () => {
     EQUALS = true
 }
 function changeCurrent(num) {
-    if(arr[x] === undefined || !(arr[x][0] === "0")) {
+    //if(arr[x] === undefined || !(arr[x][0] === "0")) {
     currentNumber += num;
     current.textContent = currentNumber;
-    }
+    //}
 }
 /*function pastContent(oper) {
     if(EQUALS) {
@@ -93,16 +92,16 @@ function changeCurrent(num) {
 }*/
 function something(curNum) {
     if(Number(curNum) == curNum) {
-        if(typeof arr[x] === "undefined") {
+        if(typeof arr[arr.length -1] === "undefined" || arr[arr.length - 1] === "+" || arr[arr.length - 1] === "-" || arr[arr.length - 1] === "*" || arr[arr.length - 1] === "/") {
             arr.push(curNum);
-        } else if(!(arr[x][0] === "0")) {
-            arr[x] += curNum
+        } else if(!(arr[arr.length - 1][0] === "0")) {
+            arr[arr.length - 1] += curNum
         }
     } else {
-        if(arr[x] === "+" ||
-            arr[x] === "-" ||
-            arr[x] === "*" ||
-            arr[x] === "/"){
+        if(arr[arr.length - 1] === "+" ||
+            arr[arr.length - 1] === "-" ||
+            arr[arr.length - 1] === "*" ||
+            arr[arr.length - 1] === "/"){
                 arr.splice(x, 1, curNum);
         } else {
             x++;
