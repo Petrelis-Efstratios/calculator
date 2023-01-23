@@ -1,20 +1,19 @@
 const current = document.querySelector(".current");
 const past = document.querySelector(".past");
 let currentNumber = "";
-let arr = [];
+let arr = ["0"];
 let result = 0;
-let num = [];
 let EQUALS = false;
-let zero = () => {changeCurrent("0"); something("0");};
-let one = () => {changeCurrent("1"); something("1");};
-let two = () => {changeCurrent("2"); something("2");};
-let three = () => {changeCurrent("3"); something("3");};
-let four = () => {changeCurrent("4"); something("4");};
-let five = () => {changeCurrent("5"); something("5");};
-let six = () => {changeCurrent("6"); something("6");};
-let seven = () => {changeCurrent("7"); something("7");};
-let eigth = () => {changeCurrent("8"); something("8");};
-let nine = () => {changeCurrent("9"); something("9");};
+let zero = () => {something("0"); changeCurrent("0");};
+let one = () => {something("1"); changeCurrent("1");};
+let two = () => {something("2"); changeCurrent("2");};
+let three = () => {something("3"); changeCurrent("3");};
+let four = () => {something("4"); changeCurrent("4");};
+let five = () => {something("5"); changeCurrent("5");};
+let six = () => {something("6"); changeCurrent("6");};
+let seven = () => {something("7"); changeCurrent("7");};
+let eigth = () => {something("8"); changeCurrent("8");};
+let nine = () => {something("9"); changeCurrent("9");};
 let plus = () => {
     currentNumber = "";
     changeCurrent("");
@@ -37,17 +36,16 @@ let devides = () => {
 };
 let AC = () => {
     currentNumber = "";
-    arr = [];
+    arr = ["0"];
     result = 0;
-    num = [];
     EQUALS = false;
-    changeCurrent("");
+    changeCurrent("AC");
     past.textContent = "";
 }
 let equals = () => {
-    past.textContent += currentNumber;
+    past.textContent = arr.join(" ");
     for(let i = 0; i < arr.length; i++) {
-        if(arr[i] === "+") {
+        if(arr[i] === "+" && i !== 0) {
             result = parseFloat(parseFloat(String(Number(arr[i - 1]) + Number(arr[i + 1]))).toFixed(8));
             arr.splice(i + 1, 1, result);
         } else if(arr[i] === "-") {
@@ -64,43 +62,37 @@ let equals = () => {
     current.textContent = "= " + result;
     arr = [];
     arr.push(result);
-    num = [];
     EQUALS = true
 }
 function changeCurrent(num) {
-    //if(arr[x] === undefined || !(arr[x][0] === "0")) {
-    currentNumber += num;
-    current.textContent = currentNumber;
-    //}
-}
-/*function pastContent(oper) {
-    if(EQUALS) {
-        past.textContent = `${result} ${oper} `;
-        EQUALS = false;
-        result = 0;
-    } else if(arr[x] === "+" ||
-        arr[x] === "-" ||
-        arr[x] === "*" ||
-        arr[x] === "/") {
-            past.textContent = past.textContent.slice(0, -2) + `${oper} `;
+    if(num === "") {
+        currentNumber = ""
+        current.textContent = "";
+    } else if(num === "AC") {
+        currentNumber = ""
+        current.textContent = "0";
     } else {
-        past.textContent += `${currentNumber} ${oper} `;
+        currentNumber += num;
+        current.textContent += currentNumber;
+        currentNumber = ""
     }
-    past.scrollTop = past.scrollHeight - past.clientHeight;
-}*/
+}
 function something(curNum) {
     if(Number(curNum) == curNum) {
-        if(typeof arr[arr.length -1] === "undefined" || arr[arr.length - 1] === "+" || arr[arr.length - 1] === "-" || arr[arr.length - 1] === "*" || arr[arr.length - 1] === "/") {
+        if(arr[arr.length - 1] === "+" || arr[arr.length - 1] === "-" || arr[arr.length - 1] === "*" || arr[arr.length - 1] === "/") {
             arr.push(curNum);
+        } else if(arr[arr.length - 1] === "0") {
+            arr.splice(arr.length - 1, 1, curNum)
+            current.textContent = current.textContent.slice(1);
         } else if(!(arr[arr.length - 1][0] === "0")) {
-            arr[arr.length - 1] += curNum
+            arr[arr.length - 1] += curNum;
         }
     } else {
         if(arr[arr.length - 1] === "+" ||
             arr[arr.length - 1] === "-" ||
             arr[arr.length - 1] === "*" ||
             arr[arr.length - 1] === "/"){
-                arr.splice(x, 1, curNum);
+                arr.splice(arr.length - 1, 1, curNum);
         } else {
             arr.push(curNum);
         }
