@@ -14,6 +14,7 @@ let six = () => {something("6"); changeCurrent("6");};
 let seven = () => {something("7"); changeCurrent("7");};
 let eigth = () => {something("8"); changeCurrent("8");};
 let nine = () => {something("9"); changeCurrent("9");};
+let point = () => {something("."); changeCurrent(".")}
 let plus = () => {
     currentNumber = "";
     changeCurrent("");
@@ -43,20 +44,26 @@ let AC = () => {
     past.textContent = "";
 }
 let equals = () => {
+    if(arr.length === 1) {
+        result = arr[0];
+    } else {
     past.textContent = arr.join(" ");
     for(let i = 0; i < arr.length; i++) {
-        if(arr[i] === "+" && i !== 0) {
-            result = parseFloat(parseFloat(String(Number(arr[i - 1]) + Number(arr[i + 1]))).toFixed(8));
-            arr.splice(i + 1, 1, result);
-        } else if(arr[i] === "-") {
-            result = parseFloat(parseFloat(String(Number(arr[i - 1]) - Number(arr[i + 1]))).toFixed(8));
-            arr.splice(i + 1, 1, result);
-        } else if (arr[i] === "*") {
-            result = parseFloat(parseFloat(String(Number(arr[i - 1]) * Number(arr[i + 1]))).toFixed(8));
-            arr.splice(i + 1, 1, result);
-        } else if(arr[i] === "/") {
-            result = parseFloat(parseFloat(String(Number(arr[i - 1]) / Number(arr[i + 1]))).toFixed(8));
-            arr.splice(i + 1, 1, result);
+            if (i === arr.length - 1) {
+                arr = [result];
+            } else if(arr[i] === "+") {
+                result = parseFloat(parseFloat(String(Number(arr[i - 1]) + Number(arr[i + 1]))).toFixed(8));
+                arr.splice(i + 1, 1, result);
+            } else if(arr[i] === "-") {
+                result = parseFloat(parseFloat(String(Number(arr[i - 1]) - Number(arr[i + 1]))).toFixed(8));
+                arr.splice(i + 1, 1, result);
+            } else if (arr[i] === "*") {
+                result = parseFloat(parseFloat(String(Number(arr[i - 1]) * Number(arr[i + 1]))).toFixed(8));
+                arr.splice(i + 1, 1, result);
+            } else if(arr[i] === "/") {
+                result = parseFloat(parseFloat(String(Number(arr[i - 1]) / Number(arr[i + 1]))).toFixed(8));
+                arr.splice(i + 1, 1, result);
+            }
         }
     }
     current.textContent = "= " + result;
@@ -78,7 +85,7 @@ function changeCurrent(num) {
     }
 }
 function something(curNum) {
-    if(Number(curNum) == curNum) {
+    if(Number(curNum) == curNum || curNum === ".") {
         if(arr[arr.length - 1] === "+" || arr[arr.length - 1] === "-" || arr[arr.length - 1] === "*" || arr[arr.length - 1] === "/") {
             arr.push(curNum);
         } else if(arr[arr.length - 1] === "0") {
@@ -143,6 +150,9 @@ window.onkeydown = function(e) {
             break;
         case "/":
             devides();
+            break;
+        case ".":
+            point();
             break;
         case "=":
             equals();
