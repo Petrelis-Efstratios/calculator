@@ -14,7 +14,12 @@ let six = () => {something("6"); changeCurrent("6");};
 let seven = () => {something("7"); changeCurrent("7");};
 let eigth = () => {something("8"); changeCurrent("8");};
 let nine = () => {something("9"); changeCurrent("9");};
-let point = () => {something("."); changeCurrent(".")}
+let point = () => {
+    if(!current.textContent.includes(".")) {
+        something(".");
+        changeCurrent(".");
+    }
+}
 let plus = () => {
     currentNumber = "";
     changeCurrent("");

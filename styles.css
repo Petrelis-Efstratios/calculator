@@ -28,11 +28,7 @@ main {
     justify-content: center;
     flex-direction: column;
 }
-.upper-part {
-    display: flex;
-    justify-content: stretch;
-    align-items: stretch;
-}
+
 .down-part {
     display: grid;
     grid-template-columns: repeat(4, 0fr);
@@ -66,4 +62,16 @@ p {
     height: 20px;
     width: 260px;
     margin: 15px;
+}
+.AC {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    width: auto;
+    height: auto;
+}
+.zero {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    width: auto;
+    height: auto;
 }
