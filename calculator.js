@@ -78,19 +78,22 @@ let equals = () => {
     } else {
     past.textContent = arr.join(" ");
     for(let i = 0; i < arr.length; i++) {
-            if (i === arr.length - 1) {
-                arr = [result];
-            } else if(arr[i] === "+") {
+        if (arr[i] === "*") {
+            result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) * Number(arr[i + 1]))).toFixed(8)));
+            arr.splice(i - 1, 3, result);
+            i = i - 2;
+        } else if(arr[i] === "/") {
+            result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) / Number(arr[i + 1]))).toFixed(8)));
+            arr.splice(i - 1, 3, result);
+            i = i - 2;
+        }
+    }
+    for(let i = 0; i < arr.length; i++) {
+            if(arr[i] === "+") {
                 result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) + Number(arr[i + 1]))).toFixed(8)));
                 arr.splice(i + 1, 1, result);
             } else if(arr[i] === "-") {
                 result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) - Number(arr[i + 1]))).toFixed(8)));
-                arr.splice(i + 1, 1, result);
-            } else if (arr[i] === "*") {
-                result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) * Number(arr[i + 1]))).toFixed(8)));
-                arr.splice(i + 1, 1, result);
-            } else if(arr[i] === "/") {
-                result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) / Number(arr[i + 1]))).toFixed(8)));
                 arr.splice(i + 1, 1, result);
             }
         }
