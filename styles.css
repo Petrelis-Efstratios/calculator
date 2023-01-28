@@ -51,7 +51,7 @@ img {
     height: 70px;
     gap: 0;
 }
-.delete {
+.backspace {
     display: flex;
     justify-content: center;
     align-items: center;

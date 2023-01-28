@@ -4,18 +4,18 @@ let currentNumber = "";
 let arr = ["0"];
 let result = 0;
 let EQUALS = false;
-let zero = () => {something("0"); changeCurrent("0");};
-let one = () => {something("1"); changeCurrent("1");};
-let two = () => {something("2"); changeCurrent("2");};
-let three = () => {something("3"); changeCurrent("3");};
-let four = () => {something("4"); changeCurrent("4");};
-let five = () => {something("5"); changeCurrent("5");};
-let six = () => {something("6"); changeCurrent("6");};
-let seven = () => {something("7"); changeCurrent("7");};
-let eigth = () => {something("8"); changeCurrent("8");};
-let nine = () => {something("9"); changeCurrent("9");};
+let zero = () => {something("0"); changeCurrent("number");};
+let one = () => {something("1"); changeCurrent("number");};
+let two = () => {something("2"); changeCurrent("number");};
+let three = () => {something("3"); changeCurrent("number");};
+let four = () => {something("4"); changeCurrent("number");};
+let five = () => {something("5"); changeCurrent("number");};
+let six = () => {something("6"); changeCurrent("number");};
+let seven = () => {something("7"); changeCurrent("number");};
+let eigth = () => {something("8"); changeCurrent("number");};
+let nine = () => {something("9"); changeCurrent("number");};
 let point = () => {
-    if(!current.textContent.includes(".")) {
+    if(!current.textContent.includes(".") || EQUALS) {
         something(".");
         changeCurrent(".");
     }
@@ -48,6 +48,30 @@ let AC = () => {
     changeCurrent("AC");
     past.textContent = "";
 }
+function backspace() {
+    if(!EQUALS) {
+        if(current.textContent.length === 1 && !past.textContent) {
+            past.textContent = "";
+            arr = ["0"];
+            current.textContent = "0";
+        } else if(current.textContent.length === 1 && past.textContent) {
+            current.textContent = "";
+            arr.splice(arr.length - 1, 1);
+        } else if(current.textContent) {
+            arr[arr.length - 1] = arr[arr.length - 1].substring(0, arr[arr.length - 1].length - 1);
+            current.textContent = current.textContent.substring(0, current.textContent.length - 1);
+        } else if(arr[arr.length - 1] === "+" || arr[arr.length - 1] === "-" || arr[arr.length - 1] === "*" || arr[arr.length - 1] === "/") {
+            arr.splice(arr.length - 1, 1);
+            past.textContent = arr.slice(0, -1).join(" ");
+            current.textContent = arr[arr.length - 1];
+        } else {
+            arr[arr.length - 1] = arr[arr.length - 1].substring(0, arr[arr.length - 1].length - 1);
+            current.textContent = current.textContent.substring(0, current.textContent.length - 1);
+            past.textContent = arr.join(" ");
+        }
+        changeCurrent("backspace");
+    }
+}
 let equals = () => {
     if(arr.length === 1) {
         result = arr[0];
@@ -57,16 +81,16 @@ let equals = () => {
             if (i === arr.length - 1) {
                 arr = [result];
             } else if(arr[i] === "+") {
-                result = parseFloat(parseFloat(String(Number(arr[i - 1]) + Number(arr[i + 1]))).toFixed(8));
+                result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) + Number(arr[i + 1]))).toFixed(8)));
                 arr.splice(i + 1, 1, result);
             } else if(arr[i] === "-") {
-                result = parseFloat(parseFloat(String(Number(arr[i - 1]) - Number(arr[i + 1]))).toFixed(8));
+                result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) - Number(arr[i + 1]))).toFixed(8)));
                 arr.splice(i + 1, 1, result);
             } else if (arr[i] === "*") {
-                result = parseFloat(parseFloat(String(Number(arr[i - 1]) * Number(arr[i + 1]))).toFixed(8));
+                result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) * Number(arr[i + 1]))).toFixed(8)));
                 arr.splice(i + 1, 1, result);
             } else if(arr[i] === "/") {
-                result = parseFloat(parseFloat(String(Number(arr[i - 1]) / Number(arr[i + 1]))).toFixed(8));
+                result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) / Number(arr[i + 1]))).toFixed(8)));
                 arr.splice(i + 1, 1, result);
             }
         }
@@ -74,42 +98,58 @@ let equals = () => {
     current.textContent = "= " + result;
     arr = [];
     arr.push(result);
-    EQUALS = true
+    EQUALS = true;
 }
 function changeCurrent(num) {
-    if(num === "") {
-        currentNumber = ""
+    if(num === "number" || num === ".") {
+        current.textContent = arr[arr.length - 1];
+    } else if (num === "") {
         current.textContent = "";
+    } else if(num === "backspace") {
+        if(Number(arr[arr.length - 1]) == arr[arr.length - 1]) {
+            current.textContent = arr[arr.length - 1];
+        }
     } else if(num === "AC") {
-        currentNumber = ""
         current.textContent = "0";
-    } else {
-        currentNumber += num;
-        current.textContent += currentNumber;
-        currentNumber = ""
     }
 }
 function something(curNum) {
     if(Number(curNum) == curNum || curNum === ".") {
         if(arr[arr.length - 1] === "+" || arr[arr.length - 1] === "-" || arr[arr.length - 1] === "*" || arr[arr.length - 1] === "/") {
-            arr.push(curNum);
+            if(curNum === ".") {
+                arr.push(`0${curNum}`);
+            } else {
+                arr.push(curNum);
+            }
+        } else if(arr[arr.length - 1] === "0" && curNum === ".") {
+            arr[arr.length - 1] = "0.";
         } else if(arr[arr.length - 1] === "0") {
             arr.splice(arr.length - 1, 1, curNum)
             current.textContent = current.textContent.slice(1);
-        } else if(!(arr[arr.length - 1][0] === "0")) {
+        } else if(EQUALS && curNum === ".") {
+            arr = ["0."];
+            EQUALS = false;
+            past.textContent = "";
+        } else if(EQUALS) {
+            arr = [curNum];
+            past.textContent = "";
+        } else {
             arr[arr.length - 1] += curNum;
         }
     } else {
-        if(arr[arr.length - 1] === "+" ||
-            arr[arr.length - 1] === "-" ||
-            arr[arr.length - 1] === "*" ||
-            arr[arr.length - 1] === "/"){
+        if(arr[arr.length - 1] === "+" || arr[arr.length - 1] === "-" || arr[arr.length - 1] === "*" || arr[arr.length - 1] === "/") {
                 arr.splice(arr.length - 1, 1, curNum);
+        } else if(arr[0] === "NaN" || arr[0] === "Infinity") {
+            arr = ["0", curNum];
         } else {
+            if(Math.round(arr[arr.length - 1]) === Number(arr[arr.length - 1])) {
+                arr.splice(arr.length - 1, 1, Math.round(arr[arr.length - 1]));
+            }
             arr.push(curNum);
         }
-        past.textContent = arr.join(" ");
+    past.textContent = arr.join(" ");
     past.scrollTop = past.scrollHeight - past.clientHeight;
+    EQUALS = false;
     }
 }
 window.onkeydown = function(e) {
@@ -167,6 +207,9 @@ window.onkeydown = function(e) {
             break;
         case "Delete":
             AC();
+            break;
+        case "Backspace":
+            backspace();
             break;
     }
 }
