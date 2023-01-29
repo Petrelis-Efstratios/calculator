@@ -26,22 +26,18 @@ let plus = () => {
     something("+");
 };
 let minus = () => {
-    currentNumber = "";
     changeCurrent("");
     something("-");
 };
 let by = () => {
-    currentNumber = "";
     changeCurrent("");
     something("*");
 };
 let devides = () => {
-    currentNumber = "";
     changeCurrent("");
     something("/")
 };
 let AC = () => {
-    currentNumber = "";
     arr = ["0"];
     result = 0;
     EQUALS = false;
@@ -81,11 +77,11 @@ let equals = () => {
         if (arr[i] === "*") {
             result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) * Number(arr[i + 1]))).toFixed(8)));
             arr.splice(i - 1, 3, result);
-            i = i - 2;
+            i -= 1;
         } else if(arr[i] === "/") {
             result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) / Number(arr[i + 1]))).toFixed(8)));
             arr.splice(i - 1, 3, result);
-            i = i - 2;
+            i -= 1;
         }
     }
     for(let i = 0; i < arr.length; i++) {
