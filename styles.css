@@ -1,4 +1,6 @@
 html {
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
     width: 100%;
     height: 100%;
 }
@@ -9,46 +11,77 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #03001C;
 }
 .operations {
-    width: 300px;
+    width: 275px;
     height: 100px;
-    background-color: white;
+    background-color: #E5D3B3;
     margin: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius: 20px;
+    border: #52b495 solid 10px;
 }
 main {
-    width: 400px;
-    height: 600px;
-    background-color: #bababa;
+    width: 370px;
+    height: 580px;
+    background-color: #5B8FB9;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    border-radius: 20px;
 }
-
 .down-part {
     display: grid;
     grid-template-columns: repeat(4, 0fr);
-    grid-template-rows: repeat(4, 0fr)
+    grid-template-rows: repeat(4, 0fr);
+    gap: 5px;
 }
-
 button {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     padding: 0;
+    background-color: #301E67;
+    color: #E5D3B3;
+    font-size: 40px;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    border-radius: 20px;
+    border: 2px solid black;
+    bottom: 0;
+    transition: bottom 0.5s;
+    position: relative;
+}
+button:hover {
+    bottom: 3px;
+    border: 2px solid #c51f73;
+}
+button:active {
+    border: 4px solid #c51f73;
+}
+.AC:hover, .backspace:hover {
+    border: 2px solid #ff1300;  
+}
+.AC:active, .backspace:active {
+    border: 4px solid #ff1300;  
+}
+.equals:hover {
+    border: 2px solid #94e42b;
+}
+.equals:active {
+    border: 4px solid #94e42b;
 }
 img {
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
+    margin-right: 4px;
     gap: 0;
 }
 .backspace {
@@ -60,7 +93,7 @@ p {
     word-wrap: break-word;
     overflow-x: auto;
     height: 20px;
-    width: 260px;
+    width: 240px;
     margin: 15px;
 }
 .AC {
