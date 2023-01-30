@@ -69,7 +69,7 @@ function backspace() {
     }
 }
 let equals = () => {
-    if(arr.length === 1) {
+    if(arr.length < 3) {
         result = arr[0];
     } else {
     past.textContent = arr.join(" ");
