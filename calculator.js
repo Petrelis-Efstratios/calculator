@@ -70,18 +70,18 @@ function backspace() {
 }
 let equals = () => {
     if(arr.length < 3) {
-        result = arr[0];
+        result = String(Math.round(arr[0]));
     } else {
     past.textContent = arr.join(" ");
     for(let i = 0; i < arr.length; i++) {
         if (arr[i] === "*") {
             result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) * Number(arr[i + 1]))).toFixed(8)));
             arr.splice(i - 1, 3, result);
-            i -= 1;
+            i--;
         } else if(arr[i] === "/") {
             result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) / Number(arr[i + 1]))).toFixed(8)));
             arr.splice(i - 1, 3, result);
-            i -= 1;
+            i--;
         }
     }
     for(let i = 0; i < arr.length; i++) {
@@ -141,9 +141,7 @@ function something(curNum) {
         } else if(arr[0] === "NaN" || arr[0] === "Infinity") {
             arr = ["0", curNum];
         } else {
-            if(Math.round(arr[arr.length - 1]) === Number(arr[arr.length - 1])) {
-                arr.splice(arr.length - 1, 1, Math.round(arr[arr.length - 1]));
-            }
+            arr.splice(arr.length - 1, 1, String(Math.round(arr[arr.length - 1])));
             arr.push(curNum);
         }
     past.textContent = arr.join(" ");
