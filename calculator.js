@@ -69,12 +69,16 @@ function backspace() {
     }
 }
 let equals = () => {
-    if(arr.length < 3) {
+    if(arr.length < 2) {
         result = String(Math.round(arr[0]));
     } else {
     past.textContent = arr.join(" ");
+    result = arr[arr.length - 2];
+    if(past.textContent.substring(0, past.textContent.length - 1).includes("*") || past.textContent.substring(0, past.textContent.length - 1).includes("/")) {
     for(let i = 0; i < arr.length; i++) {
-        if (arr[i] === "*") {
+        if(i === arr.length - 1) {
+            arr = [result];
+        } else if (arr[i] === "*") {
             result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) * Number(arr[i + 1]))).toFixed(8)));
             arr.splice(i - 1, 3, result);
             i--;
@@ -84,8 +88,11 @@ let equals = () => {
             i--;
         }
     }
+}
     for(let i = 0; i < arr.length; i++) {
-            if(arr[i] === "+") {
+            if(i === arr.length - 1) {
+                arr = [result];
+            } else if(arr[i] === "+") {
                 result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) + Number(arr[i + 1]))).toFixed(8)));
                 arr.splice(i + 1, 1, result);
             } else if(arr[i] === "-") {
@@ -95,8 +102,7 @@ let equals = () => {
         }
     }
     current.textContent = "= " + result;
-    arr = [];
-    arr.push(result);
+    arr = [result];
     EQUALS = true;
 }
 function changeCurrent(num) {
