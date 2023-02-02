@@ -101,8 +101,11 @@ let equals = () => {
             }
         }
     }
-    current.textContent = "= " + result;
-    arr = [result];
+    if(result === "Infinity" || result === "NaN") {
+         current.textContent = "You can't devide by 0";           
+    } else {
+        current.textContent = "= " + result;
+    }
     EQUALS = true;
 }
 function changeCurrent(num) {
@@ -143,8 +146,8 @@ function something(curNum) {
         }
     } else {
         if(arr[arr.length - 1] === "+" || arr[arr.length - 1] === "-" || arr[arr.length - 1] === "*" || arr[arr.length - 1] === "/") {
-                arr.splice(arr.length - 1, 1, curNum);
-        } else if(arr[0] === "NaN" || arr[0] === "Infinity") {
+            arr.splice(arr.length - 1, 1, curNum);
+        } else if(arr[0] === "Infinity" || arr[0] === ["NaN"]) {
             arr = ["0", curNum];
         } else {
             arr.splice(arr.length - 1, 1, String(Math.round(arr[arr.length - 1])));
@@ -152,8 +155,8 @@ function something(curNum) {
         }
     past.textContent = arr.join(" ");
     past.scrollTop = past.scrollHeight - past.clientHeight;
-    EQUALS = false;
     }
+    EQUALS = false;
 }
 window.onkeydown = function(e) {
     let buttonKey = e.key
