@@ -27,15 +27,15 @@ let plus = () => {
 };
 let minus = () => {
     changeCurrent("");
-    something("-");
+    something("−");
 };
 let by = () => {
     changeCurrent("");
-    something("*");
+    something("×");
 };
 let devides = () => {
     changeCurrent("");
-    something("/")
+    something("÷")
 };
 let AC = () => {
     arr = ["0"];
@@ -56,7 +56,7 @@ function backspace() {
         } else if(current.textContent) {
             arr[arr.length - 1] = arr[arr.length - 1].substring(0, arr[arr.length - 1].length - 1);
             current.textContent = current.textContent.substring(0, current.textContent.length - 1);
-        } else if(arr[arr.length - 1] === "+" || arr[arr.length - 1] === "-" || arr[arr.length - 1] === "*" || arr[arr.length - 1] === "/") {
+        } else if(arr[arr.length - 1] === "+" || arr[arr.length - 1] === "−" || arr[arr.length - 1] === "×" || arr[arr.length - 1] === "÷") {
             arr.splice(arr.length - 1, 1);
             past.textContent = arr.slice(0, -1).join(" ");
             current.textContent = arr[arr.length - 1];
@@ -74,15 +74,13 @@ let equals = () => {
     } else {
         past.textContent = arr.join(" ");
         result = arr[arr.length - 2];
-        if(past.textContent.substring(0, past.textContent.length - 1).includes("*") || past.textContent.substring(0, past.textContent.length - 1).includes("/")) {
+        if(past.textContent.substring(0, past.textContent.length - 1).includes("×") || past.textContent.substring(0, past.textContent.length - 1).includes("÷")) {
         for(let i = 0; i < arr.length; i++) {
-            if(i === arr.length - 1) {
-                arr = [result];
-            } else if (arr[i] === "*") {
+            if (arr[i] === "×") {
                 result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) * Number(arr[i + 1]))).toFixed(8)));
                 arr.splice(i - 1, 3, result);
                 i--;
-            } else if(arr[i] === "/") {
+            } else if(arr[i] === "÷") {
                 result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) / Number(arr[i + 1]))).toFixed(8)));
                 arr.splice(i - 1, 3, result);
                 i--;
@@ -95,7 +93,7 @@ let equals = () => {
             } else if(arr[i] === "+") {
                 result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) + Number(arr[i + 1]))).toFixed(8)));
                 arr.splice(i + 1, 1, result);
-            } else if(arr[i] === "-") {
+            } else if(arr[i] === "−") {
                 result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) - Number(arr[i + 1]))).toFixed(8)));
                 arr.splice(i + 1, 1, result);
             }
@@ -123,7 +121,7 @@ function changeCurrent(num) {
 }
 function something(curNum) {
     if(Number(curNum) == curNum || curNum === ".") {
-        if(arr[arr.length - 1] === "+" || arr[arr.length - 1] === "-" || arr[arr.length - 1] === "*" || arr[arr.length - 1] === "/") {
+        if(arr[arr.length - 1] === "+" || arr[arr.length - 1] === "−" || arr[arr.length - 1] === "×" || arr[arr.length - 1] === "÷") {
             if(curNum === ".") {
                 arr.push(`0${curNum}`);
             } else {
@@ -145,12 +143,14 @@ function something(curNum) {
             arr[arr.length - 1] += curNum;
         }
     } else {
-        if(arr[arr.length - 1] === "+" || arr[arr.length - 1] === "-" || arr[arr.length - 1] === "*" || arr[arr.length - 1] === "/") {
+        if(arr[arr.length - 1] === "+" || arr[arr.length - 1] === "−" || arr[arr.length - 1] === "×" || arr[arr.length - 1] === "÷") {
             arr.splice(arr.length - 1, 1, curNum);
         } else if(arr[0] === "Infinity" || arr[0] === ["NaN"]) {
             arr = ["0", curNum];
-        } else {
+        } else if(Math.round(arr[arr.length - 1]) == arr[arr.length - 1]) {
             arr.splice(arr.length - 1, 1, String(Math.round(arr[arr.length - 1])));
+            arr.push(curNum);
+        } else {
             arr.push(curNum);
         }
     past.textContent = arr.join(" ");
