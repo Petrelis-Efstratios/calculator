@@ -220,13 +220,15 @@ window.onkeydown = function(e) {
             backspace();
             break;
     }
-    const button = document.querySelector(`[key="${buttonKey}"]`);
-    if(button.classList.value === "AC" || button.classList.value === "backspace") {
-        button.style.cssText = "bottom: 3px; border: 4px solid #ff1300";
-    } else if(button.classList.value === "equals") {
-        button.style.cssText = "bottom: 3px; border: 4px solid #36f509";
-    } else {
-    button.style.cssText = "bottom: 3px; border: 4px solid #eb1e88";
+    if(buttonKey === "0" || buttonKey === "1" || buttonKey === "2" || buttonKey === "3" || buttonKey === "4" || buttonKey === "5" ||  buttonKey === "6" ||  buttonKey === "7" || buttonKey === "8" ||  buttonKey === "9" ||  buttonKey === "+" || buttonKey === "-" || buttonKey === "*" || buttonKey === "/" || buttonKey === "=" || buttonKey === "." || buttonKey === "Delete" || buttonKey === "Backspace") {
+        const button = document.querySelector(`[key="${buttonKey}"]`);
+        if(button.classList.value === "AC" || button.classList.value === "backspace") {
+            button.style.cssText = "bottom: 3px; border: 4px solid #ff1300";
+        } else if(button.classList.value === "equals") {
+            button.style.cssText = "bottom: 3px; border: 4px solid #36f509";
+        } else {
+        button.style.cssText = "bottom: 3px; border: 4px solid #eb1e88";
+        }
+        setTimeout(() => {button.style.cssText = ""}, 200);
     }
-    setTimeout(() => {button.style.cssText = ""}, 200);
-}
+}  

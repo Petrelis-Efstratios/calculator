@@ -90,13 +90,14 @@ img {
     align-items: center;
 }
 p {
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 552;
+    font-family: "Noto Sans Math", sans-serif;
+    line-height: 1.9;
+    font-weight: 600;
     word-wrap: break-word;
     overflow-x: auto;
-    height: 20px;
+    height: 40px;
     width: 240px;
-    margin: 15px;
+    margin: 10px 15px 10px 15px;
 }
 .AC {
     grid-column-start: 1;
@@ -120,10 +121,10 @@ p {
         height: 70px;
     }
     p {
-        font-weight: 551;
+        line-height: 1.5;
         width: 190px;
-        height: 20px;
-        margin: 7px;
+        height: 28px;
+        margin: 5px;
     }
     button {
         width: 53px;
