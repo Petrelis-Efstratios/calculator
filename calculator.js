@@ -77,16 +77,16 @@ let equals = () => {
         past.textContent = arr.join(" ");
         result = arr[arr.length - 2];
         if(past.textContent.substring(0, past.textContent.length - 1).includes("×") || past.textContent.substring(0, past.textContent.length - 1).includes("÷")) {
-                for(let i = 0; i < arr.length; i++) {
-                    if(arr[i] === "×" && i !== arr.length - 1) {
-                        result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) * Number(arr[i + 1]))).toFixed(8)));
-                        arr.splice(i - 1, 3, result);
-                        i--;
-                    } else if(arr[i] === "÷" && i !== arr.length - 1) {
-                        result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) / Number(arr[i + 1]))).toFixed(8)));
-                        arr.splice(i - 1, 3, result);
-                        i--;
-                    }
+            for(let i = 0; i < arr.length; i++) {
+                if(arr[i] === "×" && i !== arr.length - 1) {
+                    result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) * Number(arr[i + 1]))).toFixed(8)));
+                    arr.splice(i - 1, 3, result);
+                    i--;
+                } else if(arr[i] === "÷" && i !== arr.length - 1) {
+                    result = String(parseFloat(parseFloat(String(Number(arr[i - 1]) / Number(arr[i + 1]))).toFixed(8)));
+                    arr.splice(i - 1, 3, result);
+                    i--;
+                }
             }
         }
         for(let i = 0; i < arr.length; i++) {
