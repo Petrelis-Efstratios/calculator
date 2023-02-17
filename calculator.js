@@ -69,10 +69,12 @@ let backspace = () => {
     }
 }
 let equals = () => {
-    if(arr.length < 2 && Number(arr[0] != arr[0])) {
+    if(arr.length < 2 && Math.round(arr[0]) != arr[0]) {
+        arr = [String(Number(arr[0]))]
         result = arr[0];
-    } else if(arr.length < 2 && Number(arr[0] == arr[0]))  {
+    } else if(arr.length < 2 && Math.round(arr[0]) == arr[0])  {
         result = String(Math.round(arr[0]));
+        arr = [result];
     } else {
         past.textContent = arr.join(" ");
         result = arr[arr.length - 2];
