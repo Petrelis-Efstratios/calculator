@@ -1,6 +1,5 @@
 const current = document.querySelector(".current");
 const past = document.querySelector(".past");
-let currentNumber = "";
 let arr = ["0"];
 let result = 0;
 let EQUALS = false;
@@ -21,7 +20,6 @@ let point = () => {
     }
 }
 let plus = () => {
-    currentNumber = "";
     changeCurrent("");
     changeArray("+");
 };
@@ -69,12 +67,9 @@ let backspace = () => {
     }
 }
 let equals = () => {
-    if(arr.length < 2 && Math.round(arr[0]) != arr[0]) {
-        arr = [String(Number(arr[0]))]
+    if(arr.length < 2) {
+        arr = [String(Number(arr[0]))];
         result = arr[0];
-    } else if(arr.length < 2 && Math.round(arr[0]) == arr[0])  {
-        result = String(Math.round(arr[0]));
-        arr = [result];
     } else {
         past.textContent = arr.join(" ");
         result = arr[arr.length - 2];
@@ -149,10 +144,8 @@ function changeArray(input) {
             arr.splice(arr.length - 1, 1, input);
         } else if(arr[0] === "Infinity" || arr[0] === ["NaN"]) {
             arr = ["0", input];
-        } else if(Math.round(arr[arr.length - 1]) == arr[arr.length - 1]) {
-            arr.splice(arr.length - 1, 1, String(Math.round(arr[arr.length - 1])));
-            arr.push(input);
         } else {
+            arr.splice(arr.length - 1, 1, String(Number(arr[arr.length - 1])));
             arr.push(input);
         }
     past.textContent = arr.join(" ");
@@ -161,7 +154,7 @@ function changeArray(input) {
     EQUALS = false;
 }
 window.onkeydown = function(e) {
-    let buttonKey = e.key
+    let buttonKey = e.key;
     switch(e.key) {
         case "0":
             zero();
