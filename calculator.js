@@ -154,6 +154,7 @@ function changeArray(input) {
     EQUALS = false;
 }
 window.onkeydown = function(e) {
+    e.preventDefault(); //So that buttons don't be pressed with Enter
     let buttonKey = e.key;
     switch(e.key) {
         case "0":

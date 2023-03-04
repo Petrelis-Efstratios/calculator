@@ -58,6 +58,7 @@ button {
     bottom: 0;
     transition: bottom 0.5s;
     position: relative;
+    outline: none;
 }
 button:hover {
     bottom: 3px;
@@ -99,13 +100,7 @@ p {
     width: 240px;
     margin: 10px 15px 10px 15px;
 }
-.AC {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    width: auto;
-    height: auto;
-}
-.zero {
+.AC, .zero {
     grid-column-start: 1;
     grid-column-end: 3;
     width: auto;
