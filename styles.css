@@ -47,6 +47,7 @@ button {
     background-color: #301E67;
     color: #E5D3B3;
     font-size: 40px;
+    font-family: "Noto Sans Math", sans-serif;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -124,6 +125,7 @@ p {
     button {
         width: 53px;
         height: 53px;
+        font-size: 30px;
     }
     img {
         width: 70px;

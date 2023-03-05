@@ -20,19 +20,19 @@ let point = () => {
     }
 }
 let plus = () => {
-    changeCurrent("");
+    changeCurrent("operator");
     changeArray("+");
 };
 let minus = () => {
-    changeCurrent("");
+    changeCurrent("operator");
     changeArray("−");
 };
 let by = () => {
-    changeCurrent("");
+    changeCurrent("operator");
     changeArray("×");
 };
 let devides = () => {
-    changeCurrent("");
+    changeCurrent("operator");
     changeArray("÷")
 };
 let AC = () => {
@@ -71,6 +71,7 @@ let equals = () => {
         arr = [String(Number(arr[0]))];
         result = arr[0];
     } else {
+        arr[arr.length - 1] == Number(arr[arr.length - 1]) ? arr[arr.length - 1] = String(Number(arr[arr.length - 1])) : null ;
         past.textContent = arr.join(" ");
         result = arr[arr.length - 2];
         if(past.textContent.substring(0, past.textContent.length - 1).includes("×") || past.textContent.substring(0, past.textContent.length - 1).includes("÷")) {
@@ -108,7 +109,7 @@ let equals = () => {
 function changeCurrent(type) {
     if(type === "number" || type === ".") {
         current.textContent = arr[arr.length - 1];
-    } else if(type === "") {
+    } else if(type === "operator") {
         current.textContent = "";
     } else if(type === "backspace" && Number(arr[arr.length - 1]) == arr[arr.length - 1]) {
         current.textContent = arr[arr.length - 1];
@@ -124,9 +125,7 @@ function changeArray(input) {
             } else {
                 arr.push(input);
             }
-        } else if(arr[arr.length - 1] === "0" && input === ".") {
-            arr[arr.length - 1] = "0.";
-        } else if(arr[arr.length - 1] === "0") {
+        } else if(arr[arr.length - 1] === "0" && input !== ".") {
             arr.splice(arr.length - 1, 1, input)
             current.textContent = current.textContent.slice(1);
         } else if(EQUALS && input === ".") {
@@ -136,10 +135,10 @@ function changeArray(input) {
         } else if(EQUALS) {
             arr = [input];
             past.textContent = "";
-        } else if(arr[arr.length - 1] % 1 === 0 || arr[arr.length - 1] % 1 !== 0 && arr[arr.length - 1].split(".")[1].length < 8) {
+        } else if((current.textContent.split(".")[0].length < 11 || current.textContent.includes(".") || input === ".") && (typeof current.textContent.split(".")[1] === "undefined" || current.textContent.split(".")[1].length < 8)) {
             arr[arr.length - 1] += input;
         }
-    } else {
+    } else if(Number(input) != input) {
         if(arr[arr.length - 1] === "+" || arr[arr.length - 1] === "−" || arr[arr.length - 1] === "×" || arr[arr.length - 1] === "÷") {
             arr.splice(arr.length - 1, 1, input);
         } else if(arr[0] === "Infinity" || arr[0] === ["NaN"]) {
@@ -154,7 +153,9 @@ function changeArray(input) {
     EQUALS = false;
 }
 window.onkeydown = function(e) {
-    e.preventDefault(); //So that buttons don't be pressed with Enter
+    if(e.key === "Enter" || e.key === "/") {
+        e.preventDefault(); //So that buttons don't be pressed with Enter and disable quick find in Firefox
+    }
     let buttonKey = e.key;
     switch(e.key) {
         case "0":
