@@ -3,38 +3,13 @@ const past = document.querySelector(".past");
 let arr = ["0"];
 let result = 0;
 let EQUALS = false;
-let zero = () => {changeArray("0"); changeCurrent("number");};
-let one = () => {changeArray("1"); changeCurrent("number");};
-let two = () => {changeArray("2"); changeCurrent("number");};
-let three = () => {changeArray("3"); changeCurrent("number");};
-let four = () => {changeArray("4"); changeCurrent("number");};
-let five = () => {changeArray("5"); changeCurrent("number");};
-let six = () => {changeArray("6"); changeCurrent("number");};
-let seven = () => {changeArray("7"); changeCurrent("number");};
-let eigth = () => {changeArray("8"); changeCurrent("number");};
-let nine = () => {changeArray("9"); changeCurrent("number");};
+let button = (input, type) => {changeArray(input); changeCurrent(type)}
 let point = () => {
-    if(!current.textContent.includes(".") || EQUALS) {
+    if(!current.textContent.includes(".")) {
         changeArray(".");
         changeCurrent(".");
     }
 }
-let plus = () => {
-    changeCurrent("operator");
-    changeArray("+");
-};
-let minus = () => {
-    changeCurrent("operator");
-    changeArray("−");
-};
-let by = () => {
-    changeCurrent("operator");
-    changeArray("×");
-};
-let devides = () => {
-    changeCurrent("operator");
-    changeArray("÷")
-};
 let AC = () => {
     arr = ["0"];
     result = 0;
@@ -119,23 +94,25 @@ function changeCurrent(type) {
 }
 function changeArray(input) {
     if(Number(input) == input || input === ".") {
-        if(arr[arr.length - 1] === "+" || arr[arr.length - 1] === "−" || arr[arr.length - 1] === "×" || arr[arr.length - 1] === "÷") {
+        if(isNaN(arr[arr.length - 1])) { //true if + − × ÷
             if(input === ".") {
-                arr.push(`0${input}`);
+                arr.push("0.");
             } else {
                 arr.push(input);
             }
-        } else if(arr[arr.length - 1] === "0" && input !== ".") {
-            arr.splice(arr.length - 1, 1, input)
-            current.textContent = current.textContent.slice(1);
         } else if(EQUALS && input === ".") {
             arr = ["0."];
-            EQUALS = false;
             past.textContent = "";
         } else if(EQUALS) {
             arr = [input];
             past.textContent = "";
-        } else if((current.textContent.split(".")[0].length < 11 || current.textContent.includes(".") || input === ".") && (typeof current.textContent.split(".")[1] === "undefined" || current.textContent.split(".")[1].length < 8)) {
+        } else if(arr[arr.length - 1] === "0" && input !== ".") {
+            arr.splice(arr.length - 1, 1, input)
+            current.textContent = current.textContent.slice(1);
+        } else if(input === "." && !current.textContent.includes(".")) {
+            arr[arr.length - 1] += ".";
+        } else if ((current.textContent.split(".")[0].length < 11 && !current.textContent.includes(".")) //if you have enter a number before the period
+        || (current.textContent.includes(".") && (!current.textContent.split(".")[1] || current.textContent.split(".")[1].length < 8))) { //if you have entered a number after the period
             arr[arr.length - 1] += input;
         }
     } else if(Number(input) != input) {
@@ -157,69 +134,26 @@ window.onkeydown = function(e) {
         e.preventDefault(); //So that buttons don't be pressed with Enter and disable quick find in Firefox
     }
     let buttonKey = e.key;
-    switch(e.key) {
-        case "0":
-            zero();
-            break;
-        case "1":
-            one();
-            break;
-        case "2":
-            two();
-            break;
-        case "3":
-            three();
-            break;
-        case "4":
-            four();
-            break;
-        case "5":
-            five();
-            break;
-        case "6":
-            six();
-            break;
-        case "7":
-            seven();
-            break;
-        case "8":
-            eigth();
-            break;
-        case "9":
-            nine();
-            break;
-        case "+":
-            plus();
-            break;
-        case "-":
-            minus();
-            break;
-        case "*":
-            by();
-            break;
-        case "/":
-            devides();
-            break;
-        case ".":
-            point();
-            break;
-        case "=":
-            equals();
-            break;
-        case "Enter":
-            equals();
-            buttonKey = "=";
-            break;
-        case "Delete":
-            AC();
-            break;
-        case "Escape":
-            AC();
-            buttonKey = "Delete";
-            break;
-        case "Backspace":
-            backspace();
-            break;
+    if(Number(e.key) == e.key) {
+        button(e.key, "number");
+    } else if(e.key === "+") {
+        button("+", "operator");
+    } else if(e.key === "-") {
+        button("−", "operator");
+    } else if(e.key === "*") {
+        button("×", "operator");
+    } else if(e.key === "/") {
+        button("÷", "operator");
+    } else if (e.key === ".") {
+        point();
+    } else if (e.key === "=" || e.key === "Enter") {
+        equals();
+        buttonKey = "=";
+    } else if(e.key === "Delete" || e.key === "Escape") {
+        AC();
+        buttonKey = "Delete";
+    } else if(e.key === "Backspace") {
+        backspace();
     }
     if(Number(buttonKey) == buttonKey ||  buttonKey === "+" || buttonKey === "-" || buttonKey === "*" || buttonKey === "/" || buttonKey === "=" || buttonKey === "." || buttonKey === "Delete" || buttonKey === "Backspace") {
         const button = document.querySelector(`[key="${buttonKey}"]`);
