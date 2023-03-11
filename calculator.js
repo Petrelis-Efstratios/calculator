@@ -19,13 +19,17 @@ let AC = () => {
 }
 let backspace = () => {
     if(!EQUALS) {
-        if(current.textContent.length === 1 && !past.textContent) {
+        if((current.textContent.length === 1 && !past.textContent) || (arr[0] === "−" && arr[1].length === 1 && arr.length === 2)) {
             past.textContent = "";
             arr = ["0"];
             current.textContent = "0";
         } else if(current.textContent.length === 1 && past.textContent) {
             current.textContent = "";
             arr.splice(arr.length - 1, 1);
+        } else if(arr[0] === "−"  && arr.length === 3) {
+            arr.splice(arr.length - 1, 1);
+            past.textContent = "";
+            current.textContent = arr.join(" ");
         } else if(current.textContent) {
             arr[arr.length - 1] = arr[arr.length - 1].substring(0, arr[arr.length - 1].length - 1);
             current.textContent = current.textContent.substring(0, current.textContent.length - 1);
@@ -38,16 +42,21 @@ let backspace = () => {
             current.textContent = current.textContent.substring(0, current.textContent.length - 1);
             past.textContent = arr.join(" ");
         }
-        changeCurrent("backspace");
     }
 }
 let equals = () => {
-    if(arr.length < 2) {
+    if(arr.length < 2 && arr[0] !== "−") {
         arr = [String(Number(arr[0]))];
         result = arr[0];
+    } else if(arr.length < 3 && arr[0] === "−") {
+        arr = ["−", String(Number(arr[1]))];
+        result = arr[1];
     } else {
         arr[arr.length - 1] == Number(arr[arr.length - 1]) ? arr[arr.length - 1] = String(Number(arr[arr.length - 1])) : null ;
         past.textContent = arr.join(" ");
+        switch(arr[0]) {
+            case "−": arr.splice(0, 2, String(arr[1] * - 1));
+        }
         result = arr[arr.length - 2];
         if(past.textContent.substring(0, past.textContent.length - 1).includes("×") || past.textContent.substring(0, past.textContent.length - 1).includes("÷")) {
             for(let i = 0; i < arr.length; i++) {
@@ -73,22 +82,25 @@ let equals = () => {
                 arr.splice(i + 1, 1, result);
             }
         }
+        if(result < 0) {
+            arr.splice(0, 1, "−", String(result * (-1)));
+        }
     }
     if(result === "Infinity" || result === "NaN") {
         current.textContent = "You can't devide by 0";           
     } else {
-        current.textContent = "= " + result;
+        current.textContent = "= " + arr.join(" ");
     }
     EQUALS = true;
 }
 function changeCurrent(type) {
-    if(type === "number" || type === ".") {
+    if(arr.length === 2 && arr[0] === "−" && (type === "number" || type === ".")) {
+        current.textContent = arr.join(" ");
+    } else if(type === "number" || type === ".") {
         current.textContent = arr[arr.length - 1];
     } else if(type === "operator") {
         current.textContent = "";
-    } else if(type === "backspace" && Number(arr[arr.length - 1]) == arr[arr.length - 1]) {
-        current.textContent = arr[arr.length - 1];
-    } else if(type === "AC") {
+    }  else if(type === "AC") {
         current.textContent = "0";
     }
 }
@@ -108,11 +120,10 @@ function changeArray(input) {
             past.textContent = "";
         } else if(arr[arr.length - 1] === "0" && input !== ".") {
             arr.splice(arr.length - 1, 1, input)
-            current.textContent = current.textContent.slice(1);
         } else if(input === "." && !current.textContent.includes(".")) {
             arr[arr.length - 1] += ".";
-        } else if ((current.textContent.split(".")[0].length < 11 && !current.textContent.includes(".")) //if you have enter a number before the period
-        || (current.textContent.includes(".") && (!current.textContent.split(".")[1] || current.textContent.split(".")[1].length < 8))) { //if you have entered a number after the period
+        } else if ((arr[arr.length - 1].split(".")[0].length < 11 && !arr[arr.length - 1].includes(".")) //if you have enter a number before the period
+        || (arr[arr.length - 1].includes(".") && (!arr[arr.length - 1].split(".")[1] || arr[arr.length - 1].split(".")[1].length < 8))) { //if you have entered a number after the period
             arr[arr.length - 1] += input;
         }
     } else if(Number(input) != input) {
