@@ -59,12 +59,12 @@ let equals = () => {
         }
         result = arr[arr.length - 2];
         if(past.textContent.substring(0, past.textContent.length - 1).includes("×") || past.textContent.substring(0, past.textContent.length - 1).includes("÷")) {
-            for(let i = 0; i < arr.length; i++) {
-                if(arr[i] === "×" && i !== arr.length - 1) {
+            for(let i = 0; i < arr.length - 1; i++) {
+                if(arr[i] === "×") {
                     result = String(Number((Number(arr[i - 1]) * Number(arr[i + 1])).toFixed(8)));
                     arr.splice(i - 1, 3, result);
                     i--;
-                } else if(arr[i] === "÷" && i !== arr.length - 1) {
+                } else if(arr[i] === "÷") {
                     result = String(Number((Number(arr[i - 1]) / Number(arr[i + 1])).toFixed(8)));
                     arr.splice(i - 1, 3, result);
                     i--;
