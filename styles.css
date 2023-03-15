@@ -34,7 +34,7 @@ main {
     flex-direction: column;
     border-radius: 20px;
 }
-.down-part {
+.keyboard {
     display: grid;
     grid-template-columns: repeat(4, 0fr);
     grid-template-rows: repeat(4, 0fr);
@@ -113,7 +113,7 @@ p {
         width: 280px;
         height: 440px;
     }
-    .operations {
+    .keyboard {
         width: 207px;
         height: 70px;
     }
