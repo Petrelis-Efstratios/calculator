@@ -52,12 +52,9 @@ let equals = () => {
         arr = ["−", String(Number(arr[1]))];
         result = arr[1];
     } else {
-        arr[arr.length - 1] == Number(arr[arr.length - 1]) ? arr[arr.length - 1] = String(Number(arr[arr.length - 1])) : null ;
+        !isNaN(arr[arr.length - 1]) ? arr[arr.length - 1] = String(Number(arr[arr.length - 1])) : null;
         past.textContent = arr.join(" ");
-        switch(arr[0]) {
-            case "−": arr.splice(0, 2, String(arr[1] * - 1));
-        }
-        result = arr[arr.length - 2];
+        arr[0] === "−" ? arr.splice(0, 2, String(arr[1] * - 1)) : null;
         if(past.textContent.substring(0, past.textContent.length - 1).includes("×") || past.textContent.substring(0, past.textContent.length - 1).includes("÷")) {
             for(let i = 0; i < arr.length - 1; i++) {
                 if(arr[i] === "×") {
@@ -105,7 +102,7 @@ function changeCurrent(type) {
     }
 }
 function changeArray(input) {
-    if(Number(input) == input || input === ".") {
+    if(!isNaN(input) || input === ".") {
         if(isNaN(arr[arr.length - 1])) { //true if + − × ÷
             if(input === ".") {
                 arr.push("0.");
@@ -126,7 +123,7 @@ function changeArray(input) {
         || (arr[arr.length - 1].includes(".") && (!arr[arr.length - 1].split(".")[1] || arr[arr.length - 1].split(".")[1].length < 8))) { //if you have entered a number after the period
             arr[arr.length - 1] += input;
         }
-    } else if(Number(input) != input) {
+    } else if(isNaN(input)) {
         if(arr[arr.length - 1] === "+" || arr[arr.length - 1] === "−" || arr[arr.length - 1] === "×" || arr[arr.length - 1] === "÷") {
             arr.splice(arr.length - 1, 1, input);
         } else if(arr[0] === "Infinity" || arr[0] === ["NaN"]) {
@@ -145,7 +142,7 @@ window.onkeydown = function(e) {
         e.preventDefault(); //So that buttons don't be pressed with Enter and disable quick find in Firefox
     }
     let buttonKey = e.key;
-    if(Number(e.key) == e.key) {
+    if(!isNaN(e.key)) {
         button(e.key, "number");
     } else if(e.key === "+") {
         button("+", "operator");
@@ -166,7 +163,7 @@ window.onkeydown = function(e) {
     } else if(e.key === "Backspace") {
         backspace();
     }
-    if(Number(buttonKey) == buttonKey ||  buttonKey === "+" || buttonKey === "-" || buttonKey === "*" || buttonKey === "/" || buttonKey === "=" || buttonKey === "." || buttonKey === "Delete" || buttonKey === "Backspace") {
+    if(!isNaN(buttonKey) ||  buttonKey === "+" || buttonKey === "-" || buttonKey === "*" || buttonKey === "/" || buttonKey === "=" || buttonKey === "." || buttonKey === "Delete" || buttonKey === "Backspace") {
         const button = document.querySelector(`[key="${buttonKey}"]`);
         if(button.classList.value === "AC" || button.classList.value === "backspace") {
             button.style.cssText = "bottom: 3px; border: 4px solid #ff1300";
