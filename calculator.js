@@ -55,17 +55,15 @@ let equals = () => {
         !isNaN(arr[arr.length - 1]) ? arr[arr.length - 1] = String(Number(arr[arr.length - 1])) : null;
         past.textContent = arr.join(" ");
         arr[0] === "−" ? arr.splice(0, 2, String(arr[1] * - 1)) : null;
-        if(past.textContent.substring(0, past.textContent.length - 1).includes("×") || past.textContent.substring(0, past.textContent.length - 1).includes("÷")) {
-            for(let i = 0; i < arr.length - 1; i++) {
-                if(arr[i] === "×") {
-                    result = String(Number((Number(arr[i - 1]) * Number(arr[i + 1])).toFixed(8)));
-                    arr.splice(i - 1, 3, result);
-                    i--;
-                } else if(arr[i] === "÷") {
-                    result = String(Number((Number(arr[i - 1]) / Number(arr[i + 1])).toFixed(8)));
-                    arr.splice(i - 1, 3, result);
-                    i--;
-                }
+        for(let i = 0; i < arr.length - 1; i++) {
+            if(arr[i] === "×") {
+                result = String(Number((Number(arr[i - 1]) * Number(arr[i + 1])).toFixed(8)));
+                arr.splice(i - 1, 3, result);
+                i--;
+            } else if(arr[i] === "÷") {
+                result = String(Number((Number(arr[i - 1]) / Number(arr[i + 1])).toFixed(8)));
+                arr.splice(i - 1, 3, result);
+                i--;
             }
         }
         for(let i = 0; i < arr.length; i++) {
