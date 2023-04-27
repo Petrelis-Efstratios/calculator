@@ -45,10 +45,10 @@ let backspace = () => {
     }
 }
 let equals = () => {
-    if(arr.length < 2 && arr[0] !== "−") {
+    if(arr.length < 3 && arr[0] !== "−") {
         arr = [String(Number(arr[0]))];
         result = arr[0];
-    } else if(arr.length < 3 && arr[0] === "−") {
+    } else if(arr.length < 4 && arr[0] === "−") {
         arr = ["−", String(Number(arr[1]))];
         result = arr[1];
     } else {
