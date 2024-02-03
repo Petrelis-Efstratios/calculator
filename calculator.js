@@ -163,25 +163,17 @@ window.onkeydown = function(e) {
     }
     if(!isNaN(buttonKey) ||  buttonKey === "+" || buttonKey === "-" || buttonKey === "*" || buttonKey === "/" || buttonKey === "=" || buttonKey === "." || buttonKey === "Delete" || buttonKey === "Backspace") {
         const button = document.querySelector(`[key="${buttonKey}"]`);
-        /*if(button.classList.value === "AC" || button.classList.value === "backspace") {
-            button.style.cssText = "bottom: 3px; border: 4px solid #ff1300";
-        } else if(button.classList.value === "equals") {
-            button.style.cssText = "bottom: 3px; border: 4px solid #36f509";
-        } else {
-        button.style.cssText = "bottom: 3px; border: 4px solid #eb1e88";
+        switch(button.classList.value) {
+         case "AC":
+         case "backspace":
+             button.style.cssText = "bottom: 3px; border: 4px solid #ff1300";
+             break;
+         case "equals":
+             button.style.cssText = "bottom: 3px; border: 4px solid #36f509";
+             break;
+         default:
+             button.style.cssText = "bottom: 3px; border: 4px solid #eb1e88";
         }
-        */
-       switch(button.classList.value) {
-        case "AC":
-        case "backspace":
-            button.style.cssText = "bottom: 3px; border: 4px solid #ff1300";
-            break;
-        case "equals":
-            button.style.cssText = "bottom: 3px; border: 4px solid #36f509";
-            break;
-        default:
-            button.style.cssText = "bottom: 3px; border: 4px solid #eb1e88";
-       }
         setTimeout(() => {button.style.cssText = ""}, 200);
     }
 }  
