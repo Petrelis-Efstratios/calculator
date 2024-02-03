@@ -81,7 +81,7 @@ let equals = () => {
             arr.splice(0, 1, "−", String(result * (-1)));
         }
     }
-    if(result === "Infinity" || result === "NaN") {
+    if(result === "Infinity" || result === "-Infinity" || result === "NaN") {
         current.textContent = "You can't devide by 0";           
     } else {
         current.textContent = "= " + arr.join(" ");
@@ -124,7 +124,7 @@ function changeArray(input) {
     } else if(isNaN(input)) {
         if(arr[arr.length - 1] === "+" || arr[arr.length - 1] === "−" || arr[arr.length - 1] === "×" || arr[arr.length - 1] === "÷") {
             arr.splice(arr.length - 1, 1, input);
-        } else if(arr[0] === "Infinity" || arr[0] === ["NaN"]) {
+        } else if(arr[0] === "Infinity" || arr[0] === "NaN") {
             arr = ["0", input];
         } else {
             arr.splice(arr.length - 1, 1, String(Number(arr[arr.length - 1])));
@@ -163,13 +163,25 @@ window.onkeydown = function(e) {
     }
     if(!isNaN(buttonKey) ||  buttonKey === "+" || buttonKey === "-" || buttonKey === "*" || buttonKey === "/" || buttonKey === "=" || buttonKey === "." || buttonKey === "Delete" || buttonKey === "Backspace") {
         const button = document.querySelector(`[key="${buttonKey}"]`);
-        if(button.classList.value === "AC" || button.classList.value === "backspace") {
+        /*if(button.classList.value === "AC" || button.classList.value === "backspace") {
             button.style.cssText = "bottom: 3px; border: 4px solid #ff1300";
         } else if(button.classList.value === "equals") {
             button.style.cssText = "bottom: 3px; border: 4px solid #36f509";
         } else {
         button.style.cssText = "bottom: 3px; border: 4px solid #eb1e88";
         }
+        */
+       switch(button.classList.value) {
+        case "AC":
+        case "backspace":
+            button.style.cssText = "bottom: 3px; border: 4px solid #ff1300";
+            break;
+        case "equals":
+            button.style.cssText = "bottom: 3px; border: 4px solid #36f509";
+            break;
+        default:
+            button.style.cssText = "bottom: 3px; border: 4px solid #eb1e88";
+       }
         setTimeout(() => {button.style.cssText = ""}, 200);
     }
 }  
