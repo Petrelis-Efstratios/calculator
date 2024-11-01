@@ -82,7 +82,7 @@ let equals = () => {
         }
     }
     if(result === "Infinity" || result === "-Infinity" || result === "NaN") {
-        current.textContent = "You can't devide by 0";           
+        current.textContent = "You can't divide by 0";           
     } else {
         current.textContent = "= " + arr.join(" ");
     }
